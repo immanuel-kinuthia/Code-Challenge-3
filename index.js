@@ -16,10 +16,12 @@ const editContent = document.getElementById('edit-content');
 const cancelEditBtn = document.getElementById('cancel-edit');
 let currentPostId = null;
 
+const API_URL = window.env.API_URL || 'http://localhost:3000';
+
 // Fetch posts from API
 async function fetchPosts() {
   try {
-    const response = await fetch('http://localhost:3000/posts');
+    const response = await fetch(`${API_URL}/posts`);
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     return await response.json();
   } catch (error) {
@@ -43,7 +45,7 @@ function displayPosts(posts) {
 
 // Handle post click to show details
 async function handlePostClick(id) {
-  const post = await fetch(`http://localhost:3000/posts/${id}`).then(res => res.json());
+  const post = await fetch(`${API_URL}/posts/${id}`).then(res => res.json());
   postTitle.textContent = post.title;
   postAuthorDate.textContent = `By ${post.author} - ${post.date}`;
   postContent.textContent = post.content;
@@ -65,7 +67,7 @@ async function addNewPost(event) {
     image: 'https://via.placeholder.com/400x200',
     date: new Date().toISOString().split('T')[0]
   };
-  await fetch('http://localhost:3000/posts', {
+  await fetch(`${API_URL}/posts`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(newPost)
@@ -77,7 +79,7 @@ async function addNewPost(event) {
 
 // Edit post
 function handleEditClick() {
-  const post = fetch(`http://localhost:3000/posts/${currentPostId}`).then(res => res.json());
+  const post = fetch(`${API_URL}/posts/${currentPostId}`).then(res => res.json());
   editTitle.value = postTitle.textContent;
   editContent.value = postContent.textContent;
   postActions.style.display = 'none';
@@ -93,7 +95,7 @@ async function handleEditSubmit(event) {
     image: postImage.src,
     date: postAuthorDate.textContent.split(' - ')[1]
   };
-  await fetch(`http://localhost:3000/posts/${currentPostId}`, {
+  await fetch(`${API_URL}/posts/${currentPostId}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedPost)
@@ -112,7 +114,7 @@ function handleCancelEdit() {
 
 // Delete post
 async function handleDeleteClick() {
-  await fetch(`http://localhost:3000/posts/${currentPostId}`, { method: 'DELETE' });
+  await fetch(`${API_URL}/posts/${currentPostId}`, { method: 'DELETE' });
   const posts = await fetchPosts();
   displayPosts(posts);
   postDetail.innerHTML = '<h1>Nothing</h1>';

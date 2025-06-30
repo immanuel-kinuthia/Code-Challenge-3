@@ -1,6 +1,8 @@
 # Code-Challenge-3
 ## Overview
 
+Deployment link: https://code-challenge-3-kmz3.onrender.com
+
 Welcome to the Blog Post Management Single Page Application (SPA)! This project is a dynamic web application built with HTML, CSS, and JavaScript to manage blog posts using a local API powered by json-server. Users can view, add, edit, and delete blog posts, with each post featuring a title, content, author, and date. The app runs on a single page with no reloads, leveraging asynchronous API requests and DOM manipulation for a seamless experience. This project was developed as of 10:09 AM EAT on Friday, June 27, 2025.
 
 ## Setup Instructions
