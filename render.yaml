@@ -15,4 +15,4 @@ services:
     publishDir: .
     envVars:
       - key: API_URL
-        value: https://blog-post-spa-backend.onrender.com
+        value: https://code-challenge-3-1-nqda.onrender.com
